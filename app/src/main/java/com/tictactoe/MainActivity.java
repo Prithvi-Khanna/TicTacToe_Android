@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         {
             gameReset(view);
         }
-        if(gameValues[imageTap] == 2) {
+        else if(gameValues[imageTap] == 2) {
             gameValues[imageTap] = activePlayer;
             imageView.setTranslationY(-1000f);
             if (activePlayer == 0) {
@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
         ((ImageView) findViewById(R.id.imageView6)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView7)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView8)).setImageResource(0);
+
+        TextView turn = findViewById(R.id.playerTurn);
+        turn.setText("Player1's turn ");
     }
 
 
