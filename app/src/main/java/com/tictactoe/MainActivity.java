@@ -36,59 +36,51 @@ public class MainActivity extends AppCompatActivity {
         {
             gameReset(view);
         }
-        if(gameValues[imageTap] == 2)
-        {
+        if(gameValues[imageTap] == 2) {
             gameValues[imageTap] = activePlayer;
             imageView.setTranslationY(-1000f);
-            if(activePlayer == 0)
-            {
+            if (activePlayer == 0) {
                 imageView.setImageResource(R.drawable.zero);
                 activePlayer = 1;
                 TextView turn = findViewById(R.id.playerTurn);
                 turn.setText("Player2 chal le ");
-            }
-            else
-            {
+            } else {
                 imageView.setImageResource(R.drawable.cross);
                 activePlayer = 0;
                 TextView turn = findViewById(R.id.playerTurn);
                 turn.setText("Player1 chal le ");
             }
+
+            imageView.animate().translationYBy(1000f).setDuration(200);
+
+            for (int i = 0; i < 8; i++) {
+                if (gameValues[winPosition[i][0]] != 2 && gameValues[winPosition[i][0]] == gameValues[winPosition[i][1]] && gameValues[winPosition[i][0]] == gameValues[winPosition[i][2]]) {
+                    String winner;
+                    gameOn = false;
+                    if (gameValues[winPosition[i][0]] == 0) {
+                        winner = "Player1 has won!!!";
+                        player1Win++;
+                        TextView playerWiins = findViewById(R.id.textView4);
+                        playerWiins.setText("PLAYER 1: " + player1Win);
+                    } else {
+                        winner = "Player2 has won!!!";
+                        player2Win++;
+                        TextView playerWiins = findViewById(R.id.textView5);
+                        playerWiins.setText("PLAYER 2: " + player2Win);
+
+                    }
+                    TextView turn = findViewById(R.id.playerTurn);
+                    turn.setText(winner);
+
+                }
+            }
+
         }
 
         else
         {
             TextView turn = findViewById(R.id.playerTurn);
             turn.setText("Wrong Choice!!!");
-        }
-
-        imageView.animate().translationYBy(1000f).setDuration(200);
-
-        for(int i=0;i<8;i++)
-        {
-            if(gameValues[winPosition[i][0]] != 2 && gameValues[winPosition[i][0]] == gameValues[winPosition[i][1]] && gameValues[winPosition[i][0]] == gameValues[winPosition[i][2]] )
-            {
-                String winner ;
-                gameOn = false;
-                if(gameValues[winPosition[i][0]] == 0)
-                {
-                    winner = "Player1 has won!!!";
-                    player1Win ++;
-                    TextView playerWiins = findViewById(R.id.textView4);
-                    playerWiins.setText("PLAYER 1: "+ player1Win);
-                }
-                else
-                {
-                    winner = "Player2 has won!!!";
-                    player2Win ++;
-                    TextView playerWiins = findViewById(R.id.textView5);
-                    playerWiins.setText("PLAYER 2: "+ player2Win);
-
-                }
-                TextView turn = findViewById(R.id.playerTurn);
-                turn.setText(winner);
-
-            }
         }
     }
 
