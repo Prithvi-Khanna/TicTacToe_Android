@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 imageView.setImageResource(R.drawable.zero);
                 activePlayer = 1;
                 TextView turn = findViewById(R.id.playerTurn);
-                turn.setText("Player2 chal le ");
+                turn.setText("Player2's turn ");
             } else {
                 imageView.setImageResource(R.drawable.cross);
                 activePlayer = 0;
                 TextView turn = findViewById(R.id.playerTurn);
-                turn.setText("Player1 chal le ");
+                turn.setText("Player1's turn ");
             }
 
             imageView.animate().translationYBy(1000f).setDuration(200);
