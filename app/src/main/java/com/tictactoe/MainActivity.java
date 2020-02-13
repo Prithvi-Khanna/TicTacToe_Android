@@ -11,9 +11,11 @@ import android.widget.VideoView;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    boolean gameOn = true;
     int activePlayer = 0 ;
     int gameValues[] = {2,2,2,2,2,2,2,2,2};
+    int player1Win = 0;
+    int player2Win = 0;
 
     int winPosition [][] = { {0,1,2} , {3,4,5} , {6,7,8},
                              {0,3,6} , {1,4,7} , {2,5,8},
@@ -30,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
     {
         ImageView imageView = (ImageView) view;
         int imageTap = Integer.parseInt(imageView.getTag().toString());
+        if(!gameOn)
+        {
+            gameReset(view);
+        }
         if(gameValues[imageTap] == 2)
         {
             gameValues[imageTap] = activePlayer;
@@ -38,12 +44,22 @@ public class MainActivity extends AppCompatActivity {
             {
                 imageView.setImageResource(R.drawable.zero);
                 activePlayer = 1;
+                TextView turn = findViewById(R.id.playerTurn);
+                turn.setText("Player2 chal le ");
             }
             else
             {
                 imageView.setImageResource(R.drawable.cross);
                 activePlayer = 0;
+                TextView turn = findViewById(R.id.playerTurn);
+                turn.setText("Player1 chal le ");
             }
+        }
+
+        else
+        {
+            TextView turn = findViewById(R.id.playerTurn);
+            turn.setText("Wrong Choice!!!");
         }
 
         imageView.animate().translationYBy(1000f).setDuration(200);
@@ -52,10 +68,47 @@ public class MainActivity extends AppCompatActivity {
         {
             if(gameValues[winPosition[i][0]] != 2 && gameValues[winPosition[i][0]] == gameValues[winPosition[i][1]] && gameValues[winPosition[i][0]] == gameValues[winPosition[i][2]] )
             {
-                TextView textView3 = (TextView) findViewById(R.id.textView3);
-                textView3.setText("PLAYER"+ activePlayer +"Wins!!!");
-                break;
+                String winner ;
+                gameOn = false;
+                if(gameValues[winPosition[i][0]] == 0)
+                {
+                    winner = "Player1 has won!!!";
+                    player1Win ++;
+                    TextView playerWiins = findViewById(R.id.textView4);
+                    playerWiins.setText("PLAYER 1: "+ player1Win);
+                }
+                else
+                {
+                    winner = "Player2 has won!!!";
+                    player2Win ++;
+                    TextView playerWiins = findViewById(R.id.textView5);
+                    playerWiins.setText("PLAYER 2: "+ player2Win);
+
+                }
+                TextView turn = findViewById(R.id.playerTurn);
+                turn.setText(winner);
+
             }
         }
     }
+
+    public void gameReset(View view) {
+        gameOn = true;
+        activePlayer = 0;
+        for(int i=0; i<gameValues.length;i++)
+        {
+            gameValues[i]=2;
+        }
+        ((ImageView) findViewById(R.id.imageView0)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView1)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView2)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView3)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView4)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView5)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView6)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView7)).setImageResource(0);
+        ((ImageView) findViewById(R.id.imageView8)).setImageResource(0);
+    }
+
+
 }
