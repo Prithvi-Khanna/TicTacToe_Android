@@ -9,6 +9,8 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     boolean gameOn = true;
@@ -16,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     int gameValues[] = {2,2,2,2,2,2,2,2,2};
     int player1Win = 0;
     int player2Win = 0;
-
+    int winnerPlayer = -1;
     int winPosition [][] = { {0,1,2} , {3,4,5} , {6,7,8},
                              {0,3,6} , {1,4,7} , {2,5,8},
                              {0,4,8} , {2,4,6}
@@ -32,7 +34,21 @@ public class MainActivity extends AppCompatActivity {
     {
         ImageView imageView = (ImageView) view;
         int imageTap = Integer.parseInt(imageView.getTag().toString());
-        if(!gameOn)
+        boolean draw = true;
+        winnerPlayer = -1;
+        for(int i=0;i<8;i++)
+        {
+            if(gameValues[i]==2)
+            {
+                draw = false;
+                break;
+            }
+        }
+        if(draw == true)
+        {
+            gameReset(view);
+        }
+        else if(!gameOn)
         {
             gameReset(view);
         }
@@ -43,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
                 imageView.setImageResource(R.drawable.zero);
                 activePlayer = 1;
                 TextView turn = findViewById(R.id.playerTurn);
-                turn.setText("Player2's turn ");
+                turn.setText("X's turn ");
             } else {
                 imageView.setImageResource(R.drawable.cross);
                 activePlayer = 0;
                 TextView turn = findViewById(R.id.playerTurn);
-                turn.setText("Player1's turn ");
+                turn.setText("O's turn ");
             }
 
             imageView.animate().translationYBy(1000f).setDuration(200);
@@ -58,16 +74,17 @@ public class MainActivity extends AppCompatActivity {
                     String winner;
                     gameOn = false;
                     if (gameValues[winPosition[i][0]] == 0) {
-                        winner = "Player1 has won!!!";
+                        winner = "O has won!!!";
                         player1Win++;
                         TextView playerWiins = findViewById(R.id.textView4);
-                        playerWiins.setText("PLAYER 1: " + player1Win);
+                        playerWiins.setText("O's Wins: " + player1Win);
+                        winnerPlayer = 0;
                     } else {
-                        winner = "Player2 has won!!!";
+                        winner = "X has won!!!";
                         player2Win++;
                         TextView playerWiins = findViewById(R.id.textView5);
-                        playerWiins.setText("PLAYER 2: " + player2Win);
-
+                        playerWiins.setText("X's Wins: " + player2Win);
+                        winnerPlayer = 1;
                     }
                     TextView turn = findViewById(R.id.playerTurn);
                     turn.setText(winner);
@@ -86,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void gameReset(View view) {
         gameOn = true;
-        activePlayer = 0;
         for(int i=0; i<gameValues.length;i++)
         {
             gameValues[i]=2;
@@ -101,8 +117,32 @@ public class MainActivity extends AppCompatActivity {
         ((ImageView) findViewById(R.id.imageView7)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView8)).setImageResource(0);
 
-        TextView turn = findViewById(R.id.playerTurn);
-        turn.setText("Player1's turn ");
+        if(winnerPlayer == 0)
+        {
+            activePlayer = 0;
+            TextView turn = findViewById(R.id.playerTurn);
+            turn.setText("O's turn ");
+        }
+        else if(winnerPlayer == 1)
+        {
+            activePlayer = 1;
+            TextView turn = findViewById(R.id.playerTurn);
+            turn.setText("X's turn ");
+        }
+        else
+            {
+                Random rnd = new Random();
+                activePlayer = rnd.nextInt(2);
+                if(activePlayer == 0) {
+                    TextView turn = findViewById(R.id.playerTurn);
+                    turn.setText("O's turn ");
+                }
+                else
+                {
+                    TextView turn = findViewById(R.id.playerTurn);
+                    turn.setText("X's turn ");
+                }
+        }
     }
 
 

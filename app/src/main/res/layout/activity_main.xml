@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Player1's turn  "
+            android:text="O's turn  "
             android:textColor="@color/colorPrimary"
             android:textSize="26sp" />
 
@@ -179,7 +179,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="PLAYER 1:"
+                android:text="O's Wins:"
                 android:textColor="@color/colorPrimary"
                 android:textSize="26sp" />
 
@@ -188,7 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="PLAYER 2:"
+                android:text="X's Wins:"
                 android:textColor="@color/colorPrimary"
                 android:textSize="26sp" />
         </LinearLayout>
